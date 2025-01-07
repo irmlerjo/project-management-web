@@ -37,4 +37,3 @@ Technologien:
               Server: Java
 
               Client: TypeScript / Angular
-## 

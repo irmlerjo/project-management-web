@@ -1,0 +1,46 @@
+<!-- <div *ngIf="projects.length === 0">
+    <p>No projects available.</p>
+  </div>
+  
+  <ul *ngIf="projects.length > 0">
+    <li *ngFor="let project of projects" (click)="onProjectClick(project)">
+      {{ project.name }}
+    </li>
+  </ul>
+  
+  <div *ngIf="selectedProject">
+    <h3>Selected Project: {{ selectedProject.name }}</h3>    
+
+    <app-order [projectId]="selectedProject.id"></app-order>
+  </div> -->
+
+<mat-card *ngIf="projects.length === 0">
+    <mat-card-content>
+        <p>No projects available.</p>
+    </mat-card-content>
+</mat-card>
+
+<mat-accordion *ngIf="projects.length > 0">
+    <mat-expansion-panel *ngFor="let project of projects" (click)="onProjectClick(project)" class="project-item">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                {{ project.name }}
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+
+
+        <div *ngIf="selectedProject==project">
+            <mat-card>
+                <mat-card-content>
+                    <app-order [projectId]="selectedProject.id"></app-order>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel (click)="onNewProject()">
+        <button mat-button>Add New</button>
+
+    </mat-expansion-panel>
+
+
+</mat-accordion>

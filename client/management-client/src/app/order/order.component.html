@@ -1,0 +1,56 @@
+<mat-card *ngIf="orders.length === 0">
+    <mat-card-content>
+        <p>No orders available.</p>
+    </mat-card-content>
+</mat-card>
+
+<mat-accordion *ngIf="orders.length > 0">
+    <mat-expansion-panel *ngFor="let order of orders" (click)="onOrderClick(order)">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                {{ order.name }}
+            </mat-panel-title>
+            <mat-panel-description>
+                {{ order.description }}
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-grid-list cols="2" rowHeight="5:1">
+            <mat-grid-tile>
+                <strong>Soll</strong>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <strong>Ist</strong>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-icon fontIcon="free_cancellation"></mat-icon>
+                {{ order.deliveryDate | date}}
+            </mat-grid-tile>
+            <mat-grid-tile [ngClass]="timeDeadlineCritical(order) ? 'danger' : 'normal'">
+                <mat-icon fontIcon="today"></mat-icon>
+                {{ today | date}}
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-icon fontIcon="schedule"></mat-icon>
+                {{ order.plannedHourlyBudget }} hours
+            </mat-grid-tile>
+            <mat-grid-tile [ngClass]="hourDeadlineCritical(order) ? 'danger' : 'normal'">
+                <mat-icon fontIcon="schedule" ></mat-icon>
+                {{ order.currentHours?order.currentHours:0 }} hours
+            </mat-grid-tile>            
+            <mat-grid-tile *ngIf="order.fixedPriceCostReport">
+                <mat-icon fontIcon="price_check"></mat-icon>
+                {{ order.fixedPriceCostReport.fixedPrice}} €
+            </mat-grid-tile>
+            <mat-grid-tile *ngIf="order.perHourCostReport">
+                <mat-icon fontIcon="attach_money"></mat-icon>
+                {{order.perHourCostReport.hourlyRateBeforeTax}} € per Hour
+            </mat-grid-tile>
+            <mat-grid-tile *ngIf="order.perHourCostReport">
+                <mat-icon fontIcon="attach_money"></mat-icon>
+                {{calculateBudget(order)}} €
+            </mat-grid-tile>
+        </mat-grid-list>
+        <app-activity-report *ngIf="selectedOrder==order" [orderId]="selectedOrder.id"
+            (reportActivitiesEvent)="onActivityReports($event)"></app-activity-report>
+    </mat-expansion-panel>
+</mat-accordion>

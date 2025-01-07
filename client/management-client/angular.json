@@ -27,6 +27,7 @@
               }
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -63,7 +64,10 @@
             },
             "development": {
               "buildTarget": "management-client:build:development"
-            }
+            },
+            "options": {
+             "proxyConfig": "proxy.conf.json"
+           }
           },
           "defaultConfiguration": "development"
         },
@@ -85,6 +89,7 @@
               }
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.css"
             ],
             "scripts": []

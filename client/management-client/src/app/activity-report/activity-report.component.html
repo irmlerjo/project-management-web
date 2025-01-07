@@ -1,0 +1,32 @@
+<!-- <div *ngIf="activityReports.length === 0">
+    <p>No activity reports available for this order.</p>
+</div>
+
+<ul *ngIf="activityReports.length > 0">
+    <li *ngFor="let report of activityReports">
+        <strong>{{ report.description }}</strong> - {{ report.comment }}<br />
+        Start: {{ report.start }} | Duration: {{ report.duration }} hours
+    </li>
+</ul> -->
+
+<div *ngIf="activityReports.length === 0">
+    <mat-card>
+        <mat-card-content>
+            <p>No activity reports available for this order.</p>
+        </mat-card-content>
+    </mat-card>
+</div>
+
+<div *ngIf="activityReports.length > 0">
+    <mat-card *ngFor="let report of activityReports" style="margin:10px;">
+        <mat-card-header>
+            <mat-card-title>{{ report.description }}</mat-card-title>
+            <mat-card-subtitle>{{ report.comment }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-icon fontIcon="today"></mat-icon>
+            {{ report.start | date }}
+            <mat-icon fontIcon="schedule"></mat-icon> {{ report.duration }} hours
+        </mat-card-content>
+    </mat-card>
+</div>
